@@ -11,7 +11,7 @@ void  OnPostRender (){
     if (!lineDrawOn || linePoints.Length < 2) {return;}
    
 
-    Camera cam= camera;
+    Camera cam= GetComponent<Camera>();
 
     float nearClip= (float)cam.nearClipPlane+0.1f;
 

@@ -45,7 +45,7 @@ void  OnPostRender (){
     if (!lineDrawOn || linePoints.Length < 2) {return;}
    
 
-    Camera cam= camera;
+    Camera cam= GetComponent<Camera>();
 
     float nearClip= cam.nearClipPlane+0.1f;
 
@@ -243,18 +243,18 @@ void  LateUpdate (){
 		  
 	
 
-			Vector3 vg =  camera.WorldToScreenPoint(goal[j].transform.position);
+			Vector3 vg =  GetComponent<Camera>().WorldToScreenPoint(goal[j].transform.position);
 			//print(Screen.width+","+Screen.height);
 			Vector2 screen_goal = new Vector2(vg.x/Screen.width ,vg.y/Screen.height);
 			//print(goal[j].transform.position);
 			//print(screen_goal);
 			//print(vg);
-			Vector3 vp1= camera.WorldToScreenPoint(new Vector3(point1.x,0,point1.y));
-			Vector2 screen_p1 = new Vector2(vp1.x/camera.pixelWidth ,vp1.y/camera.pixelHeight);
+			Vector3 vp1= GetComponent<Camera>().WorldToScreenPoint(new Vector3(point1.x,0,point1.y));
+			Vector2 screen_p1 = new Vector2(vp1.x/GetComponent<Camera>().pixelWidth ,vp1.y/GetComponent<Camera>().pixelHeight);
 			//print(screen_p1);
 			//print(vp1);
-			Vector3 vp2= camera.WorldToScreenPoint(new Vector3(point2.x,0,point2.y));
-			Vector2 screen_p2 = new Vector2(vp2.x/camera.pixelWidth ,vp2.y/camera.pixelHeight);	
+			Vector3 vp2= GetComponent<Camera>().WorldToScreenPoint(new Vector3(point2.x,0,point2.y));
+			Vector2 screen_p2 = new Vector2(vp2.x/GetComponent<Camera>().pixelWidth ,vp2.y/GetComponent<Camera>().pixelHeight);	
 			//print(screen_p2);
 			//print(vp2);
 			//print("screen"+camera.pixelWidth+" "+camera.pixelHeight);
@@ -268,8 +268,8 @@ void  LateUpdate (){
 		  	tmp_linePoints[2+3*j] = point2;	
 			for(int i=0;i<3;i++)
 			{
-				Vector3 tmpp= camera.WorldToScreenPoint(new Vector3(tmp_linePoints[i+3*j].x,0,tmp_linePoints[i+3*j].y));
-				tmp_linePoints[i+3*j] = new Vector2(tmpp.x/camera.pixelWidth ,tmpp.y/camera.pixelHeight);
+				Vector3 tmpp= GetComponent<Camera>().WorldToScreenPoint(new Vector3(tmp_linePoints[i+3*j].x,0,tmp_linePoints[i+3*j].y));
+				tmp_linePoints[i+3*j] = new Vector2(tmpp.x/GetComponent<Camera>().pixelWidth ,tmpp.y/GetComponent<Camera>().pixelHeight);
 					//print ("p "+i+" " +tmp_linePoints[i].ToString("f6") );
 			}
 			//print ("sg "+screen_goal.ToString("f6"));

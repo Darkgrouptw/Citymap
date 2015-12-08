@@ -122,10 +122,10 @@ public class DataCollection : MonoBehaviour {
 					if((int.Parse(goals[i].name)-29)>=0)
 					{
 						drawer.goalenable[i] = false;
-						redtarget[i].renderer.enabled=false;
+						redtarget[i].GetComponent<Renderer>().enabled=false;
 						foreach(Transform tmpgg in goals[i].GetComponentsInChildren<Transform>())
 						{
-							tmpgg.renderer.enabled=false;
+							tmpgg.GetComponent<Renderer>().enabled=false;
 						}
 					}
 				}
@@ -136,10 +136,10 @@ public class DataCollection : MonoBehaviour {
 					if((int.Parse(goals[i].name)-40)>=0)
 					{
 						drawer.goalenable[i] = false;
-						redtarget[i].renderer.enabled=false;
+						redtarget[i].GetComponent<Renderer>().enabled=false;
 						foreach(Transform tmpgg in goals[i].GetComponentsInChildren<Transform>())
 						{
-							tmpgg.renderer.enabled=false;
+							tmpgg.GetComponent<Renderer>().enabled=false;
 						}
 					}
 				}
@@ -297,11 +297,11 @@ public class DataCollection : MonoBehaviour {
 						endName[0]="";						
 						
 						drawer.goalenable[k] = false;
-						redtarget[k].renderer.enabled=false;
+						redtarget[k].GetComponent<Renderer>().enabled=false;
 						Transform[] tmpGame =goals[k].GetComponentsInChildren<Transform>();	
 						foreach(Transform tmp in tmpGame)
 						{
-							tmp.renderer.enabled=!tmp.renderer.enabled;
+							tmp.GetComponent<Renderer>().enabled=!tmp.GetComponent<Renderer>().enabled;
 						}
 						File.AppendAllText(levelname,"Stage sum of Path,"+sumOfPath+"\r\n");
 						File.AppendAllText(levelname,"Toatal Time,"+(int)(Time.time-startTime)+"\r\n \r\n \r\n");	
@@ -344,11 +344,11 @@ public class DataCollection : MonoBehaviour {
 					for(int j=0;j< goals.Length;j++)
 					{
 						drawer.goalenable[j] = !drawer.goalenable[j];
-						redtarget[j].renderer.enabled = !redtarget[j].renderer.enabled;
+						redtarget[j].GetComponent<Renderer>().enabled = !redtarget[j].GetComponent<Renderer>().enabled;
 						Transform[] tmpGame =goals[j].GetComponentsInChildren<Transform>();	
 						foreach(Transform tmp in tmpGame)
 						{
-							tmp.renderer.enabled=!tmp.renderer.enabled;
+							tmp.GetComponent<Renderer>().enabled=!tmp.GetComponent<Renderer>().enabled;
 						}
 												
 					}
@@ -400,7 +400,7 @@ public class DataCollection : MonoBehaviour {
 			{
 				PathState++;				
 				drawer.goalenable[k] = false;
-				redtarget[k].renderer.enabled=false;
+				redtarget[k].GetComponent<Renderer>().enabled=false;
 				File.AppendAllText(levelname,"Stage sum of Path,"+sumOfPath+"\r\n");
 				File.AppendAllText(levelname,"Toatal Time,"+(int)(Time.time-startTime)+"\r\n \r\n \r\n");
 				sumOfPath=0.0f;	

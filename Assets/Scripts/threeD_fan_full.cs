@@ -10,7 +10,7 @@ void  OnPostRender (){
     if (!lineDrawOn || linePoints.Length < 2) {return;}
    
 
-    Camera cam= camera;
+    Camera cam= GetComponent<Camera>();
 
     float nearClip= cam.nearClipPlane+0.01f;
   
@@ -168,7 +168,7 @@ void  LateUpdate (){
 			//print(Screen.width+","+Screen.height);
 			 
 		  
-		  Vector3 vg =  camera.WorldToScreenPoint(goal[j].transform.position);
+		  Vector3 vg =  GetComponent<Camera>().WorldToScreenPoint(goal[j].transform.position);
 		  m_linePoints[j*8] =new Vector2(vg.x/Screen.width ,vg.y/Screen.height);
 		   //print(Mathf.Cos(180.0f));
 		 // print("0 "+tmp_linePoints[j*8]);
@@ -176,24 +176,24 @@ void  LateUpdate (){
 		  for(int jj=1;jj<8;jj++)
 		  {
 		  //	print(jj + " " +tmp_linePoints[jj]);
-		  	vp1= camera.WorldToScreenPoint(new Vector3(tmp_linePoints[jj].x,0,tmp_linePoints[jj].y));
-			m_linePoints[j*8+jj] =new Vector2(vp1.x/camera.pixelWidth ,vp1.y/camera.pixelHeight);
+		  	vp1= GetComponent<Camera>().WorldToScreenPoint(new Vector3(tmp_linePoints[jj].x,0,tmp_linePoints[jj].y));
+			m_linePoints[j*8+jj] =new Vector2(vp1.x/GetComponent<Camera>().pixelWidth ,vp1.y/GetComponent<Camera>().pixelHeight);
 			
 		  }
 	
 
-			vg =  camera.WorldToScreenPoint(goal[j].transform.position);
+			vg =  GetComponent<Camera>().WorldToScreenPoint(goal[j].transform.position);
 			//print(Screen.width+","+Screen.height);
 			Vector2 screen_goal = new Vector2(vg.x/Screen.width ,vg.y/Screen.height);
 			//print(goal[j].transform.position);
 			//print(screen_goal);
 			//print(vg);
-			vp1 = camera.WorldToScreenPoint(new Vector3(point1.x,0,point1.y));
-			Vector2 screen_p1 = new Vector2(vp1.x/camera.pixelWidth ,vp1.y/camera.pixelHeight);
+			vp1 = GetComponent<Camera>().WorldToScreenPoint(new Vector3(point1.x,0,point1.y));
+			Vector2 screen_p1 = new Vector2(vp1.x/GetComponent<Camera>().pixelWidth ,vp1.y/GetComponent<Camera>().pixelHeight);
 			//print(screen_p1);
 			//print(vp1);
-			Vector3 vp2= camera.WorldToScreenPoint(new Vector3(point2.x,0,point2.y));
-			Vector2 screen_p2 = new Vector2(vp2.x/camera.pixelWidth ,vp2.y/camera.pixelHeight);	
+			Vector3 vp2= GetComponent<Camera>().WorldToScreenPoint(new Vector3(point2.x,0,point2.y));
+			Vector2 screen_p2 = new Vector2(vp2.x/GetComponent<Camera>().pixelWidth ,vp2.y/GetComponent<Camera>().pixelHeight);	
 			//print(screen_p2);
 			//print(vp2);
 			//print("screen"+camera.pixelWidth+" "+camera.pixelHeight);

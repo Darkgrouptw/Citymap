@@ -37,7 +37,7 @@ public class twoD_fan_full : naviBase {
 	    //if (!lineDrawOn || linePoints.Length < 2) {return;}
 	   
 	
-	    cam	= camera;
+	    cam	= GetComponent<Camera>();
 	
 	    double nearClip= cam.nearClipPlane+.01;
 		//print(goal_amount);

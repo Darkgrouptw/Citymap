@@ -17,8 +17,7 @@ public class GUIController : MonoBehaviour {
 	int pressState=0;
 	public bool isGo = false;
 	float exitpresstime=0.0f;
-	ThirdPersonController ThirdController;	
-	
+	ThirdPersonController ThirdController;
 
 	// Use this for initialization
 	void Start () {	
@@ -71,8 +70,6 @@ public class GUIController : MonoBehaviour {
 			case 5:
 				taskContext = (Texture2D)Resources.Load("mission_m5");
 		    break;
-
-		    break;
 		}
 		runOrWalk = true;	
 		GameStart=false;
@@ -108,7 +105,7 @@ public class GUIController : MonoBehaviour {
 					case 2:
 						if(isGo)
 						{
-							player.animation["walk"].speed=3.0f;
+							player.GetComponent<Animation>()["walk"].speed=3.0f;
 							_animation.Play("walk", PlayMode.StopAll);
 							//Horizontal=0.0f;
 							Vertical=15.0f;
@@ -152,7 +149,7 @@ public class GUIController : MonoBehaviour {
 						Vector3 tmpfroward=this.transform.forward;
 						CharacterController controller  = player.GetComponent<CharacterController>();
 						controller.SimpleMove(tmpfroward*10 );
-						player.animation["walk"].speed=3.0f;
+						player.GetComponent<Animation>()["walk"].speed=3.0f;
 						_animation.Play("walk", PlayMode.StopAll);
 						isMoving = true;
 						
@@ -181,7 +178,7 @@ public class GUIController : MonoBehaviour {
 						Vector3 tmpfroward=this.transform.forward;
 						CharacterController controller  = player.GetComponent<CharacterController>();
 						controller.SimpleMove(tmpfroward*10 );
-						player.animation["walk"].speed=3.0f;
+						player.GetComponent<Animation>()["walk"].speed=3.0f;
 						_animation.Play("walk", PlayMode.StopAll);
 						
 					}
@@ -313,7 +310,9 @@ public class GUIController : MonoBehaviour {
 					else
 						GUI.Label(new Rect(Screen.width- 100, Screen.height- 50, 100, 50),finishTag[0]);
 				}
-				if (GUI.Button(new Rect(Screen.width- 100, 10, 100, 70), "Return"))
+                GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+                buttonStyle.fontSize = 25;
+                if (GUI.Button(new Rect(Screen.width * 0.9f, 10, Screen.width * 0.1f, Screen.height * 0.1f), "Return", buttonStyle))
 		        {
 					collector.returnNumber++;
 					if(collector.PathState==0)
@@ -356,7 +355,7 @@ public class GUIController : MonoBehaviour {
 			
 			GUI.Label(new Rect(10, Screen.height-50, 80, 50),""+(int) collector.sumOfPath);
 			GUIStyle mystyle=new GUIStyle();
-			mystyle.fontSize=20;
+			mystyle.fontSize=60;
 			mystyle.normal.textColor=Color.blue;
 			int delataTime=(int)(Time.time-collector.startTime);
 			GUI.Label(new Rect(Screen.width/2-40, 10, 80, 50),delataTime/60+" : "+string.Format("{0:00}",delataTime%60) ,mystyle);        
@@ -367,7 +366,7 @@ public class GUIController : MonoBehaviour {
 				{
 					GUIStyle buttonStyle=new GUIStyle(GUI.skin.button);
 					buttonStyle.fontSize=25;
-					if(GUI.Button(new Rect(Screen.width-180, Screen.height-80, 180, 80), "Practice Finish",buttonStyle))
+					if(GUI.Button(new Rect(Screen.width*0.85f, Screen.height*0.85f, Screen.width * 0.15f, Screen.height * 0.15f), "Practice Finish",buttonStyle))
 					{
 						
 						Application.LoadLevel(0);

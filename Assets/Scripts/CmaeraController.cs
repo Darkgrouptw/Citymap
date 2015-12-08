@@ -11,7 +11,7 @@ public class CmaeraController : MonoBehaviour {
 		m_camera=GameObject.FindGameObjectWithTag("MainCamera");
 		//if(PlayerPrefs.GetInt("GameMode")%2==0)
 		//{		
-			scale=-1.0f;
+			scale=-0.2f;
 			scale2=2.4f;
 		/*}
 		else
