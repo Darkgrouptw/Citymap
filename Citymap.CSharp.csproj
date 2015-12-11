@@ -71,19 +71,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CmaeraController.cs" />
-    <Compile Include="Assets\Scripts\DataCollection.cs" />
-    <Compile Include="Assets\Scripts\GUIController.cs" />
-    <Compile Include="Assets\Scripts\GUIStart.cs" />
-    <Compile Include="Assets\Scripts\PlanRotation.cs" />
-    <Compile Include="Assets\Scripts\gestureController.cs" />
-    <Compile Include="Assets\Scripts\naviBase.cs" />
-    <Compile Include="Assets\Scripts\threeD_fan_full.cs" />
-    <Compile Include="Assets\Scripts\threeD_fan_line.cs" />
-    <Compile Include="Assets\Scripts\twoD_fan_full.cs" />
-    <Compile Include="Assets\Scripts\twoD_fan_line.cs" />
-    <Compile Include="Assets\compus\GUICompus.cs" />
-    <Compile Include="Assets\compus\campus.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\CmaeraController.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\DataCollection.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\GUIController.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\GUIStart.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\PlanRotation.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\gestureController.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\naviBase.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\threeD_fan_full.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\threeD_fan_line.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\twoD_fan_full.cs" />
+    <Compile Include="Assets\PreVersion\Scripts\twoD_fan_line.cs" />
+    <Compile Include="Assets\PreVersion\compus\GUICompus.cs" />
+    <Compile Include="Assets\PreVersion\compus\campus.cs" />
+    <Compile Include="Assets\Scenes\Scripts\StartScene\StartSceneEvenet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
