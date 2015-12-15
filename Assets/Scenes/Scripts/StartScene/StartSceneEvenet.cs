@@ -24,19 +24,6 @@ public class StartSceneEvenet : MonoBehaviour
     private float LoadingTime = 0;
     private const float LoadingChange = 0.2f;
 
-    void Awake()
-    {
-        switch(Application.platform)
-        {
-            case RuntimePlatform.Android:
-                System.IO.File.WriteAllText("sdcard/CityMap/TestPath.txt", "Hello World!");
-                break;
-            case RuntimePlatform.WindowsEditor:
-                //PlayerPrefs.SetString("GamePath","CityMap/")
-                break;
-        }
-    }
-
     void Update()
     {
         // For loading Anim
@@ -128,7 +115,10 @@ public class StartSceneEvenet : MonoBehaviour
         StateIndex = 0;
         SelectNumber = -1;
 
+        SetGameModeColor(-1);
+        SetGameLevelColor(-1);
         GameModePresent.SetActive(true);
+        GameLevelPresent.SetActive(false);
         Next_Button.SetActive(false);
         Back_Button.SetActive(false);
     }

@@ -96,79 +96,31 @@ public class GUIController : MonoBehaviour {
 			if(GameStart)
 			{
 				#if UNITY_ANDROID
-				if(PlayerPrefs.GetInt("GameMode") < 6 )
-				{
-					switch(this.GetComponent<gestureController>().touch_reslut)
-					{
-					case 1:							
-					break;
-					case 2:
-						if(isGo)
-						{
-							player.GetComponent<Animation>()["walk"].speed=3.0f;
-							_animation.Play("walk", PlayMode.StopAll);
-							//Horizontal=0.0f;
-							Vertical=15.0f;
-							// swipeText.text = "down";
-						}
-						break;
-					case 3:
-						//Vertical=1.0f;
-						Horizontal=-5.0f;	
-						//player.transform.Rotate(new Vector3(0.0f,15.0f,0.0f));
-						//swipeText.text = "right";
-						break;
-					case 4:
-						Horizontal=5.0f;
-						// swipeText.text = "left";
-						//player.transform.Rotate(new Vector3(0.0f,-15.0f,0.0f));
-						//Vertical=1.0f;
-						//Horizontal=2.0f;
-						break;
-					}
-					if(Vertical>0)
-					{
-						Vector3 tmpfroward=this.transform.forward;
-						CharacterController controller  = player.GetComponent<CharacterController>();
-						controller.SimpleMove(tmpfroward*10);
-					}
-					else if(Horizontal!=0)
-					{
-						player.transform.Rotate(new Vector3(0.0f,3.0f,0.0f)*(Horizontal/Mathf.Abs(Horizontal)));
-					}
-					else
-					{
-						_animation.Play("idle1", PlayMode.StopAll);
-					}
-				}
-				else
-				{
-					bool isMoving = false;
-					if(Input.acceleration.y>-0.85f && isGo)
-					{		
-						Vector3 tmpfroward=this.transform.forward;
-						CharacterController controller  = player.GetComponent<CharacterController>();
-						controller.SimpleMove(tmpfroward*10 );
-						player.GetComponent<Animation>()["walk"].speed=3.0f;
-						_animation.Play("walk", PlayMode.StopAll);
-						isMoving = true;
-						
-					}
-					if(Input.acceleration.x>0.1f)
-					{
-						isMoving = true;
-						player.transform.Rotate(new Vector3(0.0f,1.0f,0.0f));
-					}
-					if(Input.acceleration.x<-0.1f)
-					{
-						isMoving = true;
-						player.transform.Rotate(new Vector3(0.0f,-1.0f,0.0f));
-					}
-					if(!isMoving)
-					{
-						_animation.Play("idle1", PlayMode.StopAll);
-					}
-				}					 
+                bool isMoving = false;
+                if (Input.acceleration.y > -0.85f && isGo)
+                {
+                    Vector3 tmpfroward = this.transform.forward;
+                    CharacterController controller = player.GetComponent<CharacterController>();
+                    controller.SimpleMove(tmpfroward * 10);
+                    player.GetComponent<Animation>()["walk"].speed = 3.0f;
+                    _animation.Play("walk", PlayMode.StopAll);
+                    isMoving = true;
+
+                }
+                if (Input.acceleration.x > 0.1f)
+                {
+                    isMoving = true;
+                    player.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
+                }
+                if (Input.acceleration.x < -0.1f)
+                {
+                    isMoving = true;
+                    player.transform.Rotate(new Vector3(0.0f, -1.0f, 0.0f));
+                }
+                if (!isMoving)
+                {
+                    _animation.Play("idle1", PlayMode.StopAll);
+                }			 
 				#endif
 
 				#if UNITY_EDITOR					
