@@ -24,6 +24,16 @@ public class StartSceneEvenet : MonoBehaviour
     private float LoadingTime = 0;
     private const float LoadingChange = 0.2f;
 
+    void Start()
+    {
+        switch (Application.platform)
+        {
+            case RuntimePlatform.Android:
+                string str = "Width: " + Screen.width + " Height: " + Screen.height;
+                System.IO.File.WriteAllText("sdcard/CityMap/ScreenInfo.txt", str);
+                break;
+        }
+    }
     void Update()
     {
         // For loading Anim
@@ -79,6 +89,9 @@ public class StartSceneEvenet : MonoBehaviour
                 StateIndex = 1;
                 SelectNumber = -1;
 
+
+                SetGameLevelColor(-1);
+
                 GameModePresent.SetActive(false);
                 GameLevelPresent.SetActive(true);
                 Next_Button.SetActive(false);
@@ -116,7 +129,6 @@ public class StartSceneEvenet : MonoBehaviour
         SelectNumber = -1;
 
         SetGameModeColor(-1);
-        SetGameLevelColor(-1);
         GameModePresent.SetActive(true);
         GameLevelPresent.SetActive(false);
         Next_Button.SetActive(false);
