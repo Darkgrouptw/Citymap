@@ -95,59 +95,60 @@ public class GUIController : MonoBehaviour {
 		{
 			if(GameStart)
 			{
-				#if UNITY_ANDROID
-                bool isMoving = false;
-                if (Input.acceleration.y > -0.85f && isGo)
+                switch (Application.platform)
                 {
-                    Vector3 tmpfroward = this.transform.forward;
-                    CharacterController controller = player.GetComponent<CharacterController>();
-                    controller.SimpleMove(tmpfroward * 10);
-                    player.GetComponent<Animation>()["walk"].speed = 3.0f;
-                    _animation.Play("walk", PlayMode.StopAll);
-                    isMoving = true;
+                    case RuntimePlatform.Android:
+                        bool isMoving = false;
+                        if (Input.acceleration.y > -0.85f && isGo)
+                        {
+                            Vector3 tmpfroward = this.transform.forward;
+                            CharacterController controller = player.GetComponent<CharacterController>();
+                            controller.SimpleMove(tmpfroward * 10);
+                            player.GetComponent<Animation>()["walk"].speed = 3.0f;
+                            _animation.Play("walk", PlayMode.StopAll);
+                            isMoving = true;
 
-                }
-                if (Input.acceleration.x > 0.1f)
-                {
-                    isMoving = true;
-                    player.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
-                }
-                if (Input.acceleration.x < -0.1f)
-                {
-                    isMoving = true;
-                    player.transform.Rotate(new Vector3(0.0f, -1.0f, 0.0f));
-                }
-                if (!isMoving)
-                {
-                    _animation.Play("idle1", PlayMode.StopAll);
-                }			 
-				#endif
+                        }
+                        if (Input.acceleration.x > 0.1f)
+                        {
+                            isMoving = true;
+                            player.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
+                        }
+                        if (Input.acceleration.x < -0.1f)
+                        {
+                            isMoving = true;
+                            player.transform.Rotate(new Vector3(0.0f, -1.0f, 0.0f));
+                        }
+                        if (!isMoving)
+                        {
+                            _animation.Play("idle1", PlayMode.StopAll);
+                        }
+                        break;
+                    case RuntimePlatform.WindowsEditor:
+                        if (Input.GetKey(KeyCode.W) && isGo)
+                        {
+                            //Vertical=1.0f;
+                            Vector3 tmpfroward = this.transform.forward;
+                            CharacterController controller = player.GetComponent<CharacterController>();
+                            controller.SimpleMove(tmpfroward * 10);
+                            player.GetComponent<Animation>()["walk"].speed = 3.0f;
+                            _animation.Play("walk", PlayMode.StopAll);
 
-				#if UNITY_EDITOR					
-					if(Input.GetKey(KeyCode.W) && isGo)
-					{					
-						//Vertical=1.0f;
-						Vector3 tmpfroward=this.transform.forward;
-						CharacterController controller  = player.GetComponent<CharacterController>();
-						controller.SimpleMove(tmpfroward*10 );
-						player.GetComponent<Animation>()["walk"].speed=3.0f;
-						_animation.Play("walk", PlayMode.StopAll);
-						
-					}
-					else if(Input.GetKey(KeyCode.D))
-					{
-						player.transform.Rotate(new Vector3(0.0f,3.0f,0.0f));
-					}
-					else if(Input.GetKey(KeyCode.A))
-					{
-						player.transform.Rotate(new Vector3(0.0f,-3.0f,0.0f));
-					}
-					else
-					{
-						_animation.Play("idle1", PlayMode.StopAll);
-					}
-				#endif
-			
+                        }
+                        else if (Input.GetKey(KeyCode.D))
+                        {
+                            player.transform.Rotate(new Vector3(0.0f, 3.0f, 0.0f));
+                        }
+                        else if (Input.GetKey(KeyCode.A))
+                        {
+                            player.transform.Rotate(new Vector3(0.0f, -3.0f, 0.0f));
+                        }
+                        else
+                        {
+                            _animation.Play("idle1", PlayMode.StopAll);
+                        }
+                        break;
+                }
 			}
 		}
 	}
@@ -263,7 +264,10 @@ public class GUIController : MonoBehaviour {
 						GUI.Label(new Rect(Screen.width- 100, Screen.height- 50, 100, 50),finishTag[0]);
 				}
                 GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
-                buttonStyle.fontSize = 25;
+                buttonStyle.fontSize = 30;
+                if (GUI.Button(new Rect(0, 10, Screen.width * 0.1f, Screen.height * 0.1f), "Back to Meun", buttonStyle))
+		            Application.LoadLevel(0);
+
                 if (GUI.Button(new Rect(Screen.width * 0.9f, 10, Screen.width * 0.1f, Screen.height * 0.1f), "Return", buttonStyle))
 		        {
 					collector.returnNumber++;
