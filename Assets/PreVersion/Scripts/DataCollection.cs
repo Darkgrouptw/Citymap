@@ -16,8 +16,6 @@ public class DataCollection : MonoBehaviour
     public float startTime = 0.0f;
     float targetLength = 5.0f;
     int countdown = 0;
-    public GameObject twoDCompus;
-    public GameObject threeDCompus;
     List<GameObject> redtarget = new List<GameObject>();
     GameObject player;
     public Vector3 lastPos;
@@ -35,66 +33,19 @@ public class DataCollection : MonoBehaviour
         {
             case 0:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                threeDCompus.SetActive(false);
-                drawer.mode = 0;
+                drawer.mode = 1;
                 break;
             case 1:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                threeDCompus.SetActive(false);
                 drawer.mode = 1;
                 break;
             case 2:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                threeDCompus.SetActive(false);
-                drawer.mode = 2;
+                drawer.mode = 1;
                 break;
             case 3:
-                drawer = this.gameObject.AddComponent<threeD_fan_line>();
-                twoDCompus.SetActive(false);
-                drawer.mode = 0;
-                break;
-            case 4:
-                drawer = this.gameObject.AddComponent<threeD_fan_line>();
-                twoDCompus.SetActive(false);
-                drawer.mode = 1;
-                break;
-            case 5:
-                drawer = this.gameObject.AddComponent<threeD_fan_line>();
-                twoDCompus.SetActive(false);
-                drawer.mode = 2;
-                break;
-
-
-            case 6:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                threeDCompus.SetActive(false);
-                drawer.mode = 0;
-
-                break;
-            case 7:
-                drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                threeDCompus.SetActive(false);
                 drawer.mode = 1;
-                break;
-            case 8:
-                drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                threeDCompus.SetActive(false);
-                drawer.mode = 2;
-                break;
-            case 9:
-                drawer = this.gameObject.AddComponent<threeD_fan_line>();
-                twoDCompus.SetActive(false);
-                drawer.mode = 0;
-                break;
-            case 10:
-                drawer = this.gameObject.AddComponent<threeD_fan_line>();
-                twoDCompus.SetActive(false);
-                drawer.mode = 1;
-                break;
-            case 11:
-                drawer = this.gameObject.AddComponent<threeD_fan_line>();
-                twoDCompus.SetActive(false);
-                drawer.mode = 2;
                 break;
         }
 
