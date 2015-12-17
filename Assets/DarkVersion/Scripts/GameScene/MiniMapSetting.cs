@@ -5,11 +5,6 @@ using UnityEngine.UI;
 public class MiniMapSetting : MonoBehaviour 
 {
     private GameObject      Male;
-    private GameObject[]    goal;
-    private bool[]          goalEnable;
-
-    // Arrow
-    public RectTransform[]  UIArrow;     
 
 
     //For Case 1 & 3
@@ -20,17 +15,14 @@ public class MiniMapSetting : MonoBehaviour
     private Vector3 MapSize = new Vector3(1130, 0, 1130);
     private Vector3 MiniMapSize;
     private const float MiniMapScale = 2f;
+
+    //地圖 2D UI
+    private float UIArrowScale = 0.9f;
     void Awake()
     {
         //拿人物的座標
         Male = GameObject.Find("Male");
         //Debug.Log(MaleTran.position);
-
-        //把每個終點先拿到這裡來
-        goal = GameObject.FindGameObjectsWithTag("Finish");
-        goalEnable = new bool[goal.Length];
-        for (int i = 0; i < goal.Length; i++)
-            goalEnable[i] = true;
 
         MiniMap = GameObject.Find("MiniMap-Map");
         MiniPerson = GameObject.Find("MiniMap-Person");
@@ -41,7 +33,7 @@ public class MiniMapSetting : MonoBehaviour
                 MiniMap.SetActive(true);
                 Vector2 TempPos = MiniMap.GetComponent<RectTransform>().rect.size;
                 MiniMapSize = new Vector3(TempPos.x, 0, TempPos.y);
-                Debug.Log(MiniMapSize.ToString());
+                //Debug.Log(MiniMapSize.ToString());
                 break;
             case 1:
             case 3:
@@ -56,10 +48,10 @@ public class MiniMapSetting : MonoBehaviour
         {
             case 0:
             case 2:
+                //小地圖移動
                 MiniMap.GetComponent<RectTransform>().localPosition =
                     new Vector3(CountToMiniMapX(Male.transform.position.x),
                         CountToMiniMapZ(Male.transform.position.z), 0);
-
                 break;
         }
         //小地圖裡的人物要動

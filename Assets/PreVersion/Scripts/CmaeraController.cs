@@ -12,7 +12,7 @@ public class CmaeraController : MonoBehaviour
     {
         m_camera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        scale = -0.33f;
+        scale = -0.3f;
         scale2 = 2.4f;
     }
 

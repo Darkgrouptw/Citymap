@@ -25,7 +25,6 @@ public class naviBase : MonoBehaviour {
 	 protected int GameState =0;
 	 public float aa;
 	public bool isFan = true;
-	public int mode;
 	public DataCollection mDatac;
 	
 	// Use this for initialization

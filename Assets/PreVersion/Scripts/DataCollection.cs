@@ -33,19 +33,15 @@ public class DataCollection : MonoBehaviour
         {
             case 0:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                drawer.mode = 1;
                 break;
             case 1:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                drawer.mode = 1;
                 break;
             case 2:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                drawer.mode = 1;
                 break;
             case 3:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                drawer.mode = 1;
                 break;
         }
 
