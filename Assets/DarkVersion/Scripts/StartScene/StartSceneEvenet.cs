@@ -29,6 +29,7 @@ public class StartSceneEvenet : MonoBehaviour
         switch (Application.platform)
         {
             case RuntimePlatform.Android:
+                Screen.SetResolution(1280, 800, true);
                 string str = "Width: " + Screen.width + " Height: " + Screen.height;
                 System.IO.File.WriteAllText("sdcard/CityMap/ScreenInfo.txt", str);
                 break;

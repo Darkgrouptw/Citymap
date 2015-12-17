@@ -249,8 +249,6 @@ public class GUIController : MonoBehaviour {
 				{
 					isGo = true;
 					File.AppendAllText(PlayerPrefs.GetString("GamePath"),"GO Time,"+(Time.time - collector.startTime)+"\r\n\r\n");	
-
-
 				}
 			}
 		
@@ -264,10 +262,10 @@ public class GUIController : MonoBehaviour {
 						GUI.Label(new Rect(Screen.width- 100, Screen.height- 50, 100, 50),finishTag[0]);
 				}
                 GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
-                buttonStyle.fontSize = 30;
-                if (GUI.Button(new Rect(0, 10, Screen.width * 0.1f, Screen.height * 0.1f), "Back to Meun", buttonStyle))
+                buttonStyle.fontSize = 15;
+                if (GUI.Button(new Rect(0, 10, Screen.width * 0.1f, Screen.height * 0.1f), "Back to Menu", buttonStyle))
 		            Application.LoadLevel(0);
-
+                buttonStyle.fontSize = 30;
                 if (GUI.Button(new Rect(Screen.width * 0.9f, 10, Screen.width * 0.1f, Screen.height * 0.1f), "Return", buttonStyle))
 		        {
 					collector.returnNumber++;

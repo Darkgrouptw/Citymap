@@ -117,33 +117,19 @@ public class DataCollection : MonoBehaviour
                     break;
                 case 1:
                     mode_two(nowPos);
-                    //mode_one(nowPos);
                     break;
                 case 2:
                     mode_five(nowPos);
-                    //mode_one(nowPos);
                     break;
                 case 3:
                     mode_five(nowPos);
-                    //mode_two(nowPos);
                     break;
                 case 4:
                     mode_three(nowPos);
-                    //mode_five( nowPos);
                     break;
                 case 5:
                     mode_three(nowPos);
-                    //mode_five( nowPos);
                     break;
-                /*case 6:
-                    mode_three(nowPos);
-                break;
-                case 7:
-                     mode_three(nowPos);
-                break;
-                case 8:
-                    mode_four(nowPos);
-                break;*/
             }
 
 

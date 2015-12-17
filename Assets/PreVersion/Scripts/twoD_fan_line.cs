@@ -39,7 +39,7 @@ public class twoD_fan_line : naviBase
         }
         MainCamera = GameObject.Find("Camera").GetComponent<Camera>();
 
-        float gap = 300;
+        float gap = 200;
         switch(Application.platform)
         {
             case RuntimePlatform.Android:
@@ -47,8 +47,8 @@ public class twoD_fan_line : naviBase
                 UIBorderHeight = Screen.height - gap;
                 break;
             case RuntimePlatform.WindowsEditor:
-                UIBorderWidth = 2560 - gap;
-                UIBorderHeight = 1600 - gap;
+                UIBorderWidth = 1280 - gap;
+                UIBorderHeight = 800 - gap;
                 break;
         }
     }
