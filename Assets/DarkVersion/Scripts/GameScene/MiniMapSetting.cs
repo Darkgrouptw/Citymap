@@ -12,9 +12,10 @@ public class MiniMapSetting : MonoBehaviour
     //For Case All
     private GameObject      MiniPerson;             //小地圖裡的方向
 
-    private Vector3 MapSize = new Vector3(1130, 0, 1130);
-    private Vector3 MiniMapSize;
-    private const float MiniMapScale = 2f;
+    private Vector3         MapSize = new Vector3(1130, 0, 1130);
+    private Vector3         MiniMapSize;
+    private const float     MiniMapScale = 2f;
+
 
     //地圖 2D UI
     private float UIArrowScale = 0.9f;
@@ -22,7 +23,6 @@ public class MiniMapSetting : MonoBehaviour
     {
         //拿人物的座標
         Male = GameObject.Find("Male");
-        //Debug.Log(MaleTran.position);
 
         MiniMap = GameObject.Find("MiniMap-Map");
         MiniPerson = GameObject.Find("MiniMap-Person");
@@ -35,8 +35,7 @@ public class MiniMapSetting : MonoBehaviour
                 MiniMapSize = new Vector3(TempPos.x, 0, TempPos.y);
                 //Debug.Log(MiniMapSize.ToString());
                 break;
-            case 1:
-            case 3:
+            default:
                 MiniMap.SetActive(false);
                 break;
         }

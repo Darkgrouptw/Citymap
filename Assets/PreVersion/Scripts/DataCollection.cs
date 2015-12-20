@@ -32,15 +32,11 @@ public class DataCollection : MonoBehaviour
         switch (PlayerPrefs.GetInt("GameMode"))
         {
             case 0:
-                drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                break;
             case 1:
-                drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                break;
             case 2:
-                drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                break;
             case 3:
+            case 4:
+            case 5:
                 drawer = this.gameObject.AddComponent<twoD_fan_line>();
                 break;
         }

@@ -12,6 +12,12 @@ public class twoD_fan_line : naviBase
 
     private float UIBorderWidth;
     private float UIBorderHeight;
+
+    //MiniMap Arrow & PointerMap Arrow
+    private GameObject[] MiniMapArrow;
+    private GameObject[] PointerMapArrow;
+    private float MapArrowRadius = 250;
+
     void Awake()
     {
         myweight = Screen.width / 160;
@@ -32,10 +38,25 @@ public class twoD_fan_line : naviBase
 
         Debug.Log("Goal Amount => " + goal_amount);
         UIArrow = new GameObject[goal_amount];
+
+        // MiniMap Arrow & PointerMap Arrow Setting
+        Transform[] MiniMap_GameObject = GameObject.Find("MiniMap-Arrow-Destination").GetComponentsInChildren<Transform>(true);
+        MiniMapArrow = new GameObject[goal_amount];
+        Transform[] PointerMap_GameObject = GameObject.Find("PointerMap-Arrow-Destination").GetComponentsInChildren<Transform>(true);
+        PointerMapArrow = new GameObject[goal_amount];
         for (int i = 0; i < goal_amount; i++)
         {
             UIArrow[i] = GameObject.Find("Arrow-" + string.Format("{0:00}", i + 1));
             UIArrow[i].GetComponent<Image>().enabled = true;
+
+            switch (PlayerPrefs.GetInt("GameMode"))
+            {
+                case 0:
+                case 2:
+                    MiniMapArrow[i] =  MiniMap_GameObject[i + 1].gameObject;
+                    MiniMapArrow[i].GetComponent<Image>().enabled = true;
+                    break;
+            }
         }
         MainCamera = GameObject.Find("Camera").GetComponent<Camera>();
 
@@ -89,13 +110,33 @@ public class twoD_fan_line : naviBase
         else
             return new Vector3(UIBorderWidth * 0.5f, UIBorderHeight * ((Angle >= 315) ? Angle - 360 : Angle) * 0.3f / 45, 0);
     }
+
+    //小地圖 箭頭
+    void MapArrowPos(GameObject Arrow, Vector3 Angle)
+    {
+        Arrow.transform.localEulerAngles = Angle;
+        Arrow.transform.localPosition = new Vector3(MapArrowRadius * Mathf.Cos((float)Angle.z * Mathf.PI / 180),
+                                                    MapArrowRadius * Mathf.Sin((float)Angle.z * Mathf.PI / 180),0);
+    }
     void Update()
     {
         for(int i = 0 ; i< goal_amount;i++)
             if(goalenable[i])
             {
+                GameObject MapArrow;
                 UIArrow[i].transform.localEulerAngles = CountArrowAngles(goal[i].transform.position);
                 UIArrow[i].transform.localPosition = CountArrowPosition(UIArrow[i].transform.localEulerAngles.z);
+                switch(PlayerPrefs.GetInt("GameMode"))
+                {
+                    case 0:
+                    case 2:
+                        MapArrow = MiniMapArrow[i];
+                        break;
+                    default:
+                        MapArrow = PointerMapArrow[i];
+                        break;
+                }
+                MapArrowPos(MapArrow, CountArrowAngles(goal[i].transform.position));
             }
     }
 
