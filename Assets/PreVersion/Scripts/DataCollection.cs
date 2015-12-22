@@ -51,7 +51,7 @@ public class DataCollection : MonoBehaviour
         levelname = PlayerPrefs.GetString("GamePath");
 
         File.WriteAllText(levelname, "Level," + (PlayerPrefs.GetInt("GameLevel")) + "\r\n");
-        Debug.Log(PlayerPrefs.GetInt("GameLevel").ToString());
+        Debug.Log("Level => " + PlayerPrefs.GetInt("GameLevel").ToString() + "\nMode => " + PlayerPrefs.GetInt("GameMode").ToString());
 
         for (int i = 0; i < goals.Length; i++)
         {

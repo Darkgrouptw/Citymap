@@ -7,8 +7,14 @@ public class twoD_fan_line : naviBase
     public float    myweight;
     private Camera  MainCamera;
     //畫 UI 的地方
+    private const int DistanceCount = 500;          //比這個小，永遠都是Min
+    private const float MaxArrowScale = 0.2f;
+    private const float MinArrowScale = 0.05f;
     private GameObject[] UIArrow;
-    private float ErrorArea = 0.01f;         //轉成角度的時候得誤差
+    private GameObject[] UIPoint;
+    private GameObject[] UIText;
+    private const float DistanceScale = 1;
+    private const float ErrorArea = 0.01f;                //轉成角度的時候得誤差
 
     private float UIBorderWidth;
     private float UIBorderHeight;
@@ -16,8 +22,8 @@ public class twoD_fan_line : naviBase
     //MiniMap Arrow & PointerMap Arrow
     private GameObject[] MiniMapArrow;
     private GameObject[] PointerMapArrow;
-    private float MapArrowRadius = 250;
-
+    private float MapArrowRadius = 300;
+    private float CountDistanceScale = 0.27f;
     void Awake()
     {
         myweight = Screen.width / 160;
@@ -36,27 +42,49 @@ public class twoD_fan_line : naviBase
         controller = GameObject.FindGameObjectWithTag("Player");
         mDatac = this.gameObject.GetComponent<DataCollection>();
 
-        Debug.Log("Goal Amount => " + goal_amount);
+        //Debug.Log("Goal Amount => " + goal_amount);
         UIArrow = new GameObject[goal_amount];
+        UIPoint = new GameObject[goal_amount];
+        UIText  = new GameObject[goal_amount];
 
         // MiniMap Arrow & PointerMap Arrow Setting
         Transform[] MiniMap_GameObject = GameObject.Find("MiniMap-Arrow-Destination").GetComponentsInChildren<Transform>(true);
         MiniMapArrow = new GameObject[goal_amount];
         Transform[] PointerMap_GameObject = GameObject.Find("PointerMap-Arrow-Destination").GetComponentsInChildren<Transform>(true);
         PointerMapArrow = new GameObject[goal_amount];
+        
         for (int i = 0; i < goal_amount; i++)
         {
             UIArrow[i] = GameObject.Find("Arrow-" + string.Format("{0:00}", i + 1));
             UIArrow[i].GetComponent<Image>().enabled = true;
+            switch(PlayerPrefs.GetInt("GameMode"))
+            {
+                case 2:
+                case 3:
+                case 5:
+                    UIArrow[i].GetComponentsInChildren<Transform>()[1].GetComponent<Text>().enabled = true;
+                    break;
+            }
 
+            UIPoint[i] = GameObject.Find("Point-" + string.Format("{0:00}", i + 1));
+            UIPoint[i].GetComponent<Image>().enabled = false;
+
+
+            MiniMapArrow[i] = MiniMap_GameObject[i + 1].gameObject;
+            PointerMapArrow[i] = PointerMap_GameObject[i + 1].gameObject;
             switch (PlayerPrefs.GetInt("GameMode"))
             {
                 case 0:
                 case 2:
-                    MiniMapArrow[i] =  MiniMap_GameObject[i + 1].gameObject;
                     MiniMapArrow[i].GetComponent<Image>().enabled = true;
                     break;
+                case 1:
+                case 3:
+                    PointerMapArrow[i].GetComponent<Image>().enabled = true;
+                    break;
             }
+
+            UIText[i] = UIArrow[i].GetComponentsInChildren<Transform>(true)[1].gameObject;
         }
         MainCamera = GameObject.Find("Camera").GetComponent<Camera>();
 
@@ -74,12 +102,14 @@ public class twoD_fan_line : naviBase
         }
     }
 
+
     // 把角度加到Camera上
     Vector3 FixToCameraAngle(Vector3 world)
     {
         //-90 把他轉成正的 + Controll的角度
         return new Vector3(0, 0, (world.z + controller.transform.localEulerAngles.y + 270) % 360);        
     }
+
     //算出角度來
     Vector3 CountArrowAngles(Vector3 Pos)
     {
@@ -97,6 +127,7 @@ public class twoD_fan_line : naviBase
         else
             return FixToCameraAngle(new Vector3(0, 0, 360 - AnsCos));
     }
+
     //傳進去角度，傳出來要跑到最螢幕上的位置
     Vector3 CountArrowPosition(float Angle)
     {
@@ -111,32 +142,114 @@ public class twoD_fan_line : naviBase
             return new Vector3(UIBorderWidth * 0.5f, UIBorderHeight * ((Angle >= 315) ? Angle - 360 : Angle) * 0.3f / 45, 0);
     }
 
-    //小地圖 箭頭
-    void MapArrowPos(GameObject Arrow, Vector3 Angle)
+    //地圖上箭頭的大小改變
+    Vector3 CountArrowScale(Vector3 Pos)
     {
-        Arrow.transform.localEulerAngles = Angle;
+        Vector2 Player = new Vector2(controller.transform.position.x, controller.transform.position.z);
+        Vector2 Point = new Vector2(Pos.x, Pos.z);
+        float dis = Vector2.Distance(Point, Player);
+        float ScaleNumber;       
+        if (dis <= DistanceCount)
+        {
+            ScaleNumber = (MaxArrowScale - MinArrowScale) * (DistanceCount - dis) / DistanceCount + MinArrowScale;
+            return new Vector3(ScaleNumber, ScaleNumber, 1);
+        }
+        else
+            return new Vector3(MinArrowScale, MinArrowScale, 1);
+    }
+
+    //小地圖 箭頭
+    void MapArrowPos(GameObject Arrow, GameObject Point, Vector3 Angle , Vector3 Pos)
+    {
+        Arrow.transform.localEulerAngles = new Vector3(0, 0, (Angle.z + 270) % 360); ;      
         Arrow.transform.localPosition = new Vector3(MapArrowRadius * Mathf.Cos((float)Angle.z * Mathf.PI / 180),
                                                     MapArrowRadius * Mathf.Sin((float)Angle.z * Mathf.PI / 180),0);
+
+        Vector2 Player = new Vector2(controller.transform.position.x, controller.transform.position.z);
+        Vector2 p = new Vector2(Pos.x, Pos.z);
+        float dis = Vector2.Distance(Player, p);
+        if(dis <= MapArrowRadius * CountDistanceScale)
+        {
+            Arrow.GetComponent<Image>().enabled = false;
+            Point.GetComponent<Image>().enabled = true;
+        }
+        else
+        {
+            Arrow.GetComponent<Image>().enabled = true;
+            Point.GetComponent<Image>().enabled = false;
+        }
+        Point.transform.localPosition = new Vector3(dis / CountDistanceScale * Mathf.Cos((float)Angle.z * Mathf.PI / 180),
+                                                    dis / CountDistanceScale * Mathf.Sin((float)Angle.z * Mathf.PI / 180), 0);
+    }
+
+    string DistanceShow(Vector3 Pos)
+    {
+        Vector2 Player = new Vector2(controller.transform.position.x, controller.transform.position.z);
+        Vector2 Point = new Vector2(Pos.x, Pos.z);
+        float dis = Vector2.Distance(Point, Player);
+        return ((int)(dis * DistanceScale)).ToString() + " m";
+    }
+    Vector3 MapArrowAngles(Vector3 Pos)
+    {
+        Vector2 Player = new Vector2(controller.transform.position.x, controller.transform.position.z);
+        Vector2 Point = new Vector2(Pos.x, Pos.z);
+        float dis = Vector2.Distance(Point, Player);
+        float AnsCos = Mathf.Acos((Point.x - Player.x) / dis) * 180 / Mathf.PI;
+        float AnsSin = Mathf.Asin((Point.y - Player.y) / dis) * 180 / Mathf.PI;
+        if (AnsCos - AnsSin <= ErrorArea && AnsCos <= 90)
+            return new Vector3(0, 0, AnsCos);       //第一象限
+        else if (AnsCos + AnsSin <= 180 + ErrorArea / 2 && AnsCos + AnsSin >= 180 - ErrorArea / 2)
+            return new Vector3(0, 0, AnsCos);       //第二象限
+        else if (AnsCos - AnsSin <= ErrorArea && AnsCos >= 180)
+            return new Vector3(0, 0, AnsCos + 180); //第三象限
+        else
+            return new Vector3(0, 0, 360 - AnsCos);
+    }
+
+    //看是否要顯示
+    bool IsMapPointVisable(Vector3 Pos)
+    {
+        Vector2 Player = new Vector2(controller.transform.position.x, controller.transform.position.z);
+        Vector2 Point = new Vector2(Pos.x, Pos.z);
+        float dis = Vector2.Distance(Player, Point);
+        if (dis <= MapArrowRadius * CountDistanceScale)
+            return true;
+        return false;
     }
     void Update()
     {
         for(int i = 0 ; i< goal_amount;i++)
             if(goalenable[i])
             {
-                GameObject MapArrow;
                 UIArrow[i].transform.localEulerAngles = CountArrowAngles(goal[i].transform.position);
                 UIArrow[i].transform.localPosition = CountArrowPosition(UIArrow[i].transform.localEulerAngles.z);
+                
                 switch(PlayerPrefs.GetInt("GameMode"))
                 {
-                    case 0:
-                    case 2:
-                        MapArrow = MiniMapArrow[i];
+                    case 0:     // 會變小，位置地圖
+                        UIArrow[i].transform.localScale = CountArrowScale(goal[i].transform.position);
+                        MapArrowPos(MiniMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         break;
-                    default:
-                        MapArrow = PointerMapArrow[i];
+                    case 1:     // 會變小，指針地圖
+                        UIArrow[i].transform.localScale = CountArrowScale(goal[i].transform.position);
+                        MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        break;
+                    case 2:     // 顯示距離，位置地圖
+                        MapArrowPos(MiniMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
+                        break;
+                    case 3:     // 顯示距離，指針地圖
+                        MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
+                        break;
+                    case 4:     // 不會變小，指針地圖
+                        MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        break;
+                    case 5:
+                        UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
                         break;
                 }
-                MapArrowPos(MapArrow, CountArrowAngles(goal[i].transform.position));
+                
             }
     }
 

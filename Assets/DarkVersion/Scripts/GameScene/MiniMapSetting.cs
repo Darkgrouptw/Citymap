@@ -11,8 +11,10 @@ public class MiniMapSetting : MonoBehaviour
     private GameObject      MiniMap;                //地圖
     //For Case All
     private GameObject      MiniPerson;             //小地圖裡的方向
+    //For Case 5
+    private GameObject      MapBorder;          //地圖邊界
 
-    private Vector3         MapSize = new Vector3(1130, 0, 1130);
+    private Vector3         MapSize = new Vector3(1134, 0, 1120);
     private Vector3         MiniMapSize;
     private const float     MiniMapScale = 2f;
 
@@ -26,6 +28,7 @@ public class MiniMapSetting : MonoBehaviour
 
         MiniMap = GameObject.Find("MiniMap-Map");
         MiniPerson = GameObject.Find("MiniMap-Person");
+        MapBorder = GameObject.Find("Map Border");
         switch(PlayerPrefs.GetInt("GameMode"))
         {
             case 0:
@@ -33,10 +36,18 @@ public class MiniMapSetting : MonoBehaviour
                 MiniMap.SetActive(true);
                 Vector2 TempPos = MiniMap.GetComponent<RectTransform>().rect.size;
                 MiniMapSize = new Vector3(TempPos.x, 0, TempPos.y);
-                //Debug.Log(MiniMapSize.ToString());
                 break;
-            default:
+            case 1:
+            case 3:
+            case 4:
                 MiniMap.SetActive(false);
+                break;
+            case 5:
+                MapBorder.SetActive(false);
+                MiniMap.SetActive(false);
+                MiniPerson.SetActive(false);
+                GameObject.Find("Map Area").GetComponent<Image>().enabled = false;
+                this.enabled = false;
                 break;
         }
     }
@@ -47,7 +58,7 @@ public class MiniMapSetting : MonoBehaviour
         {
             case 0:
             case 2:
-                //小地圖移動
+                //位置地圖
                 MiniMap.GetComponent<RectTransform>().localPosition =
                     new Vector3(CountToMiniMapX(Male.transform.position.x),
                         CountToMiniMapZ(Male.transform.position.z), 0);
