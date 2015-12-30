@@ -118,11 +118,11 @@ public class twoD_fan_line : naviBase
         float dis = Vector2.Distance(Point, Player);
         float AnsCos = Mathf.Acos((Point.x - Player.x) / dis) * 180 / Mathf.PI;
         float AnsSin = Mathf.Asin((Point.y - Player.y) / dis) * 180 / Mathf.PI;
-        if (AnsCos - AnsSin <= ErrorArea && AnsCos <= 90)
+        if (AnsCos <= 90 && AnsSin >=0)
             return FixToCameraAngle(new Vector3(0, 0, AnsCos));       //第一象限
-        else if (AnsCos + AnsSin <= 180 + ErrorArea / 2 && AnsCos + AnsSin >= 180 - ErrorArea / 2)
+        else if (AnsCos >= 90 && AnsSin >= 0)
             return FixToCameraAngle(new Vector3(0, 0, AnsCos));       //第二象限
-        else if (AnsCos - AnsSin <= ErrorArea && AnsCos >= 180)
+        else if (AnsCos >= 90 && AnsSin <= 0)
             return FixToCameraAngle(new Vector3(0, 0, AnsCos + 180)); //第三象限
         else
             return FixToCameraAngle(new Vector3(0, 0, 360 - AnsCos));
