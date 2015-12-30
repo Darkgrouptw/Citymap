@@ -123,7 +123,7 @@ public class twoD_fan_line : naviBase
         else if (AnsCos >= 90 && AnsSin >= 0)
             return FixToCameraAngle(new Vector3(0, 0, AnsCos));       //第二象限
         else if (AnsCos >= 90 && AnsSin <= 0)
-            return FixToCameraAngle(new Vector3(0, 0, AnsCos + 180)); //第三象限
+            return FixToCameraAngle(new Vector3(0, 0, 180 - AnsSin)); //第三象限
         else
             return FixToCameraAngle(new Vector3(0, 0, 360 - AnsCos));
     }
