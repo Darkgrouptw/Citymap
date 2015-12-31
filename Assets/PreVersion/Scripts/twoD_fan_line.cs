@@ -56,7 +56,17 @@ public class twoD_fan_line : naviBase
         for (int i = 0; i < goal_amount; i++)
         {
             UIArrow[i] = GameObject.Find("Arrow-" + string.Format("{0:00}", i + 1));
-            UIArrow[i].GetComponent<Image>().enabled = true;
+            switch(PlayerPrefs.GetInt("GameMode"))
+            {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    UIArrow[i].GetComponent<Image>().enabled = true;
+                    break;
+            }
             switch(PlayerPrefs.GetInt("GameMode"))
             {
                 case 2:
@@ -76,10 +86,12 @@ public class twoD_fan_line : naviBase
             {
                 case 0:
                 case 2:
+                case 6:
                     MiniMapArrow[i].GetComponent<Image>().enabled = true;
                     break;
                 case 1:
                 case 3:
+                case 7:
                     PointerMapArrow[i].GetComponent<Image>().enabled = true;
                     break;
             }
@@ -242,11 +254,17 @@ public class twoD_fan_line : naviBase
                         MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
                         break;
-                    case 4:     // 不會變小，指針地圖
-                        MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                    case 4:     // 只有 UI 地圖
+                        UIArrow[i].transform.localScale = CountArrowScale(goal[i].transform.position);
                         break;
-                    case 5:
+                    case 5:     // 只有資訊的地圖
                         UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
+                        break;
+                    case 6:
+                        MapArrowPos(MiniMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        break;
+                    case 7:
+                        MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         break;
                 }
                 

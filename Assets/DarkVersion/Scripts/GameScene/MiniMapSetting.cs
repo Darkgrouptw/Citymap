@@ -33,15 +33,17 @@ public class MiniMapSetting : MonoBehaviour
         {
             case 0:
             case 2:
+            case 6:
                 MiniMap.SetActive(true);
                 Vector2 TempPos = MiniMap.GetComponent<RectTransform>().rect.size;
                 MiniMapSize = new Vector3(TempPos.x, 0, TempPos.y);
                 break;
             case 1:
             case 3:
-            case 4:
+            case 7:
                 MiniMap.SetActive(false);
                 break;
+            case 4:
             case 5:
                 MapBorder.SetActive(false);
                 MiniMap.SetActive(false);
@@ -58,6 +60,7 @@ public class MiniMapSetting : MonoBehaviour
         {
             case 0:
             case 2:
+            case 6:
                 //位置地圖
                 MiniMap.GetComponent<RectTransform>().localPosition =
                     new Vector3(CountToMiniMapX(Male.transform.position.x),

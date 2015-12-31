@@ -29,18 +29,7 @@ public class DataCollection : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        switch (PlayerPrefs.GetInt("GameMode"))
-        {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                drawer = this.gameObject.AddComponent<twoD_fan_line>();
-                break;
-        }
-
+        drawer = this.gameObject.AddComponent<twoD_fan_line>();
     }
     void Start()
     {
