@@ -37,39 +37,23 @@ public class GUIController : MonoBehaviour {
 		switch(PlayerPrefs.GetInt("GameLevel"))
 		{
 		    case 0:
-				switch(PlayerPrefs.GetInt("GameMode")%6)
-				{
-					case 0:		
-						taskContext=(Texture2D)Resources.Load("mission_touch_wedge01_1");
-						break;	
-					case 1:						
-					case 2:
-						taskContext=(Texture2D)Resources.Load("mission_touch_wedge02_1");
-					break;
-					case 3:	
-						taskContext=(Texture2D)Resources.Load("mission_touch_wedge04_1");
-						break;	
-					case 4:						
-					case 5:
-						taskContext=(Texture2D)Resources.Load("mission_touch_wedge03_1");
-						break;					
-				}
-		    break;
+                taskContext = (Texture2D)Resources.Load("TD1");
+		        break;
 		    case 1:
 		    	taskContext = (Texture2D)Resources.Load("mission_m1");
-		    break;
+		        break;
 		    case 2:
 		    	taskContext = (Texture2D)Resources.Load("mission_m2");
-		    break;
+		        break;
 		    case 3:
 		        taskContext = (Texture2D)Resources.Load("mission_m3");
-		    break;
+		        break;
 			case 4:
 				taskContext = (Texture2D)Resources.Load("mission_m4");
-		    break;
+		        break;
 			case 5:
 				taskContext = (Texture2D)Resources.Load("mission_m5");
-		    break;
+		        break;
 		}
 		runOrWalk = true;	
 		GameStart=false;
@@ -167,40 +151,16 @@ public class GUIController : MonoBehaviour {
 					case 0:				
 						if (GUI.Button(new Rect(10, 10, Screen.width-20.0f, Screen.height-20.0f), "",style))
 						{
-							switch(PlayerPrefs.GetInt("GameMode")/6)
-							{
-								case 0:
-									switch(PlayerPrefs.GetInt("GameMode")%3)
-									{
-										case 0:
-											taskContext=(Texture2D)Resources.Load("mission_touch_wedge01_2");
-											break;
-										case 1:
-										case 2:
-											taskContext=(Texture2D)Resources.Load("mission_touch_wedge02_2");
-											break;
-									}
-								break;
-								case 1:
-									taskContext=(Texture2D)Resources.Load("mission_body_control_2");
-								break;
-							}
+
+                            taskContext = (Texture2D)Resources.Load("TD2");
 							pressState=1;
 						}
 						break;
 					case 1:
 						if (GUI.Button(new Rect(10, 10, Screen.width-20.0f, Screen.height-20.0f), "",style))
 						{
-							switch(PlayerPrefs.GetInt("GameMode")%3)
-							{
-								case 0:
-									taskContext=(Texture2D)Resources.Load("mission_touch_wedge01_3");
-									break;
-								case 1:
-								case 2:
-									taskContext=(Texture2D)Resources.Load("mission_touch_wedge02_3");
-									break;								
-							}
+							
+                            taskContext = (Texture2D)Resources.Load("TD3");
 							pressState=2;
 							
 						}
