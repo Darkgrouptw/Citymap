@@ -8,7 +8,7 @@ public class twoD_fan_line : naviBase
     private Camera  MainCamera;
     //畫 UI 的地方
     private const int DistanceCount = 500;          //比這個小，永遠都是Min
-    private const float MaxArrowScale = 0.2f;
+    private const float MaxArrowScale = 0.25f;
     private const float MinArrowScale = 0.05f;
     private GameObject[] UIArrow;
     private GameObject[] UIPoint;
@@ -20,6 +20,7 @@ public class twoD_fan_line : naviBase
     private float UIBorderHeight;
 
     //MiniMap Arrow & PointerMap Arrow
+    private const int ArrowCount = 9;
     private GameObject[] MiniMapArrow;
     private GameObject[] PointerMapArrow;
     private float MapArrowRadius = 300;
@@ -233,6 +234,7 @@ public class twoD_fan_line : naviBase
         for(int i = 0 ; i< goal_amount;i++)
             if(goalenable[i])
             {
+                UIArrow[i].SetActive(true);
                 UIArrow[i].transform.localEulerAngles = CountArrowAngles(goal[i].transform.position);
                 UIArrow[i].transform.localPosition = CountArrowPosition(UIArrow[i].transform.localEulerAngles.z);
                 
@@ -240,34 +242,84 @@ public class twoD_fan_line : naviBase
                 {
                     case 0:     // 會變小，位置地圖
                         UIArrow[i].transform.localScale = CountArrowScale(goal[i].transform.position);
+                        MiniMapArrow[i].SetActive(true);
+                        UIPoint[i].SetActive(true);
                         MapArrowPos(MiniMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         break;
                     case 1:     // 會變小，指針地圖
                         UIArrow[i].transform.localScale = CountArrowScale(goal[i].transform.position);
+                        PointerMapArrow[i].SetActive(true);
+                        UIPoint[i].SetActive(true);
                         MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         break;
                     case 2:     // 顯示距離，位置地圖
+                        MiniMapArrow[i].SetActive(true);
+                        UIPoint[i].SetActive(true);
                         MapArrowPos(MiniMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        UIText[i].SetActive(true);
                         UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
                         break;
                     case 3:     // 顯示距離，指針地圖
+                        PointerMapArrow[i].SetActive(true);
+                        UIPoint[i].SetActive(true);
                         MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
+                        UIText[i].SetActive(true);
                         UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
                         break;
                     case 4:     // 只有 UI 地圖
                         UIArrow[i].transform.localScale = CountArrowScale(goal[i].transform.position);
                         break;
                     case 5:     // 只有資訊的地圖
+                        UIText[i].SetActive(true);
                         UIText[i].GetComponent<Text>().text = DistanceShow(goal[i].transform.position);
                         break;
                     case 6:
+                        MiniMapArrow[i].SetActive(true);
+                        UIPoint[i].SetActive(true);
                         MapArrowPos(MiniMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         break;
                     case 7:
+                        PointerMapArrow[i].SetActive(true);
+                        UIPoint[i].SetActive(true);
                         MapArrowPos(PointerMapArrow[i], UIPoint[i], MapArrowAngles(goal[i].transform.position), goal[i].transform.position);
                         break;
                 }
-                
+            }
+            else 
+            {
+                UIArrow[i].SetActive(false);
+                switch(PlayerPrefs.GetInt("GameMode"))
+                {
+                    case 0:
+                        MiniMapArrow[i].SetActive(false);
+                        UIPoint[i].SetActive(false);
+                        break;
+                    case 1:
+                        PointerMapArrow[i].SetActive(false);
+                        UIPoint[i].SetActive(false);
+                        break;
+                    case 2:
+                        MiniMapArrow[i].SetActive(false);
+                        UIPoint[i].SetActive(false);
+                        UIText[i].SetActive(false);
+                        break;
+                    case 3:
+                        PointerMapArrow[i].SetActive(false);
+                        UIPoint[i].SetActive(false);
+                        UIText[i].SetActive(false);
+                        break;
+                    case 5:
+                        UIText[i].SetActive(false);
+                        break;
+                    case 6:
+                        MiniMapArrow[i].SetActive(false);
+                        UIPoint[i].SetActive(false);
+                        break;
+                    case 7:
+                        PointerMapArrow[i].SetActive(false);
+                        UIPoint[i].SetActive(false);
+                        break;
+                }
             }
     }
 

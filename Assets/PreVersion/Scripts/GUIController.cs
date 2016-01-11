@@ -261,8 +261,10 @@ public class GUIController : MonoBehaviour {
 				style.normal.background=btnTexture;
 				style.hover.background = btnTexture;
 				if(GUI.Button(new Rect((Screen.width/2)-150, (Screen.height/2)-50, 300, 100),"",style))
-				{					
-						Application.LoadLevel(0);				
+				{
+                    //Destroy(this);
+					Application.LoadLevel(7);				
+                    //Application.LoadLevelAdditive(0);
 				}	
 			}
 			
