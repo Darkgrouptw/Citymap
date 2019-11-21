@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.IO;
 
@@ -17,14 +17,14 @@ public class GUIController : MonoBehaviour {
 	int pressState=0;
 	public bool isGo = false;
 	float exitpresstime=0.0f;
-	ThirdPersonController ThirdController;
+	//ThirdPersonController ThirdController;
 
 	// Use this for initialization
 	void Start () {	
 		player=GameObject.FindGameObjectWithTag("Player");
-		ThirdController=player.GetComponent<ThirdPersonController>();
+		//ThirdController=player.GetComponent<ThirdPersonController>();
 		_animation=player.GetComponent<Animation>();
-		ThirdController.enabled=false;
+		//ThirdController.enabled=false;
 		collector = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<DataCollection>();
 		finishTag = new Texture2D[4];
 		finishTag[0] = (Texture2D)Resources.Load("map_55_1_2");
